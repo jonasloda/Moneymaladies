@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Billeder/thumbnail.png" type="image/png">
+    <title>Digitale Centralbankpenge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="Money Maladies: Introduction.html">MONEY MALADIES</a></li>
+            <li><a href="Front Page (CBDC).html">DIGITALE CENTRALBANKPENGE</a></li>
+            <li><a href="møntiggørelsen.html">MØNTIGGØRELSEN</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="content-box"></div>
+        <h1 class="home-title">DIGITALE CENTRALBANKPENGE</h1>
+        <h1 class="about-title">EN DEMOKRATISK PENGEFORM</h1>
+        <p>
+            <div style="text-align: center; margin-top: 0px; margin-bottom: 50px;">
+                <img src="Billeder/Frame 3.png" alt="A Credit View of Money" width="700px">
+            </div>
+        </p>
+        <p><span class="dropcap">I</span>déen om digitale centralbankpenge (Central Bank Digital Currency, CBDC) som alternativ eller supplement til eksisterende pengetyper har gennem det seneste årti vundet indpas på den internationale bankscene. I takt med, at kontantmængden langsomt falder, og at kryptovaluta samt stablecoins omvendt udbredes, bliver det stadig mere nødvendigt for centralbanker at forholde sig til finansteknologiens nyeste landvindinger og samtidig
+            
+            gentænke deres rolle i samfundsøkonomien. Derfor
+            går spørgsmålet i dag på, om de bør udstede en
+            CBDC, der er en digital forlængelse af kontanter.
+
+        </p>
+
+        <p>For at imødegå konkurrencen fra blockchainbaserede betalingssystemer og bl.a. fremme finansiel inklusion har verdens centralbanker nedsat forskningsenheder, der har til formål at afdække
+            risici og fordele ved CBDC. En rundspørge fra 2021
+            viser, at 90% af verdens centralbanker forsker i,
+            hvordan de kan implementere egne digitale valutaer
+            (​Kosse & Mattei 2022). Parallelt med en række
+            centralamerikanske østater har Nigeria allerede
+            lanceret en CBDC, ligesom bl.a. Kina, Sverige og
+            Sydkorea har iværksat pilotprojekter (Atlantic
+            Council 2022).</p>
+
+        <p>I Danmark forholder man sig også til spørgsmålet
+            (Nationalbanken 2022). I en forskningsartikel fra 2017 har Nationalbanken gjort det klart, at en detail-CBDC – digitale centralbankpenge, der kan benyttes af virksomheder og husholdninger – umiddelbart
+            
+            ikke er hensigtsmæssig (Gürtler m.fl. 2017). Omvendt har Nationalbanken formidlet interesse i indførelsen af en engros-CBDC, der skal optimere
+            
+            afviklingsprocesser blandt finansielle institutioner
+            (Oxvig & Holm 2022).</p>
+
+        <p>Selvom CBDC nu er kommet på dagsordenen, går
+            idéen om digitale centralbankpenge forud for det
+            sidste årtis skærpede debat og kan trækkes tilbage
+            til økonomen James Tobin. I 80’erne foreslog han
+            
+            en pengeform, der kombinerer bankindskuds bekvemmelighed med kontanters sikkerhed; en type
+            
+            penge, der skulle optimere betalingsprocesser og
+            
+            samtidig minimere behovet for en indskudsgarantiordning (Tobin 1985).</p>
+
+        <p>I samklang med Tobin advokerer foreningen Gode
+            Penge for en detail-CBDC. En detail-CBDC, også
+            
+            kaldet e-krone, kan fremme konkurrence og innovation i bank- og betalingssektoren samt styrke det
+            
+            pengepolitiske råderum. Kombineret med politiske
+            tiltag og demokratiserende centralbankreformer kan
+            digitale centralbankpenge tilmed bane vejen for et
+            almennyttigt og grønt pengesystem.</p>
+
+        <p>Mange centralbanker tolker i dag en detail-CBDC
+            som en evolutionær nødvendighed, der – udover at
+            strømline betalingsprocesser og fremme finansiel
+            inklusion – også kan mobiliseres som led i et forsøg
+            på at værne om den monetære suverænitet. Men
+            
+            en detail-CBDC byder også på en række udfordringer og risici, der bl.a. angår privatlivet og konsolidering af finansiel magt. Derfor er det vigtigt at
+            
+            analysere, vurdere og forstå faldgruberne ved
+            digitale centralbankpenge: Hvad er bekymringerne –
+            og hvordan sikrer vi, at de nye digitale penge tjener
+            samfundets interesse?</p>
+
+                <!-- Arrow container -->
+                <div class="arrow-container">
+                    <a href="Oversigt.html" class="arrow-link right-arrow">
+                        <span class="arrow">→</span>
+                    </a>
+                </div>
+
+       <!-- Comments Section -->
+       <div id="comment-section" class="comments-section">
+        <form id="comment-form">
+            <input type="text" id="name" placeholder="Your Name" required><br><br>
+            <textarea id="comment" placeholder="Your Commment" rows="5" required></textarea><br><br>
+            <button type="submit">Submit Comment</button>
+        </form>
+        <div id="comments-container"></div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const commentForm = document.getElementById('comment-form');
+        const commentsContainer = document.getElementById('comments-container');
+
+        function createComment(name, text) {
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment-box');
+
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <button type="button" class="toggle-comment" aria-label="Toggle comment">−</button>
+                    <span class="comment-author">${name}</span>
+                </div>
+                <div class="comment-body">
+                    <p>${text}</p>
+                    <div class="comment-actions">
+                        <span class="reply-btn">Reply to ${name}</span>
+                    </div>
+                    <div class="reply-container"></div>
+                </div>
+            `;
+
+            const toggleBtn = commentDiv.querySelector('.toggle-comment');
+            toggleBtn.onclick = () => {
+                const collapsed = commentDiv.classList.toggle('collapsed');
+                toggleBtn.textContent = collapsed ? '+' : '−';
+
+                // Also collapse/expand all nested replies
+                const replyContainer = commentDiv.querySelector('.reply-container');
+                if (replyContainer) {
+                    replyContainer.style.display = collapsed ? 'none' : 'block';
+                }
+            };
+
+            commentDiv.querySelector('.reply-btn').onclick = function () {
+                if (commentDiv.querySelector('.reply-form')) return;
+
+                const parentAuthor = commentDiv.querySelector('.comment-author').textContent;
+                const replyForm = document.createElement('form');
+                replyForm.classList.add('reply-form');
+                replyForm.innerHTML = `
+                    <div style="margin-bottom: 8px; font-size: 0.9em; color: #666;">Replying to ${parentAuthor}</div>
+                    <input type="text" placeholder="Your Name" required><br><br>
+                    <textarea placeholder="Your Reply" rows="3" required></textarea><br><br>
+                    <button type="submit">Submit Reply</button>
+                `;
+
+                commentDiv.querySelector('.comment-body').appendChild(replyForm);
+
+                replyForm.onsubmit = function (e) {
+                    e.preventDefault();
+                    const replyName = replyForm.querySelector('input').value;
+                    const replyText = replyForm.querySelector('textarea').value;
+
+                    commentDiv.querySelector('.reply-container').appendChild(createComment(replyName, replyText));
+                    replyForm.remove();
+                };
+            };
+
+            return commentDiv;
+        }
+
+        commentForm.onsubmit = function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+
+            commentsContainer.prepend(createComment(name, comment));
+            commentForm.reset();
+        };
+    });
+</script>
+
+    </div>
+
+</body>
+</html>

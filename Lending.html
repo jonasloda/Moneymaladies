@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Billeder/thumbnail.png" type="image/png">
+    <title>Money Maladies</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="Money Maladies: Introduction.html">MONEY MALADIES</a></li>
+            <li><a href="Front Page (CBDC).html">DIGITALE CENTRALBANKPENGE</a></li>
+            <li><a href="møntiggørelsen.html">MØNTIGGØRELSEN</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="content-box"></div>
+        <h1 class="home-title">LENDING</h1>
+        <h1 class="about-title">REALLOCATING MONEY</h1>
+
+        <p><span class="dropcap">T</span>itus Plautus, a playwright of the early Roman Republic, wrote that just as fowlers must scatter seed before they can snare birds, so too must business owners spend money before they can earn it (<a href="https://www.gutenberg.org/files/16564/16564-h/16564-h.htm" target="_blank">1916</a>). Indeed, for commodities to be produced, inputs must first be acquired, such as tools, labor, and raw materials, all of which require money in advance. Such are the facts, at least in any monetary economy. But what if the would-be business owner lacks (seed) money? In that case, the production cycle cannot commence. The aspiring entrepreneur is left with limited options. They might attempt to save up money by working for others, assuming, of course, that work is available, and that wages suffice to accumulate the required capital. Alternatively, they may try to raise money through equity, offering others a share in the future enterprise in exchange for an upfront investment. Or, they may seek to borrow, that is, to persuade someone with money to part with it, in exchange for a promise of repayment in the future.</p>
+
+        <p>In the first two scenarioes, the entrepreneur acquires money without taking on any formal obligation to repay. When drawing on personal savings, they merely exercise economic rights earned through past labor. And in the case of equity investment, they gain access to funds by relinquishing a portion of ownership and control, but not under any binding promise to return those funds. In both cases, then, the balance sheet records an inflow of money assets, but no offsetting liabilities. </p>
+
+        <p>Now, borrowing is categorically different. To borrow is to acquire not only money, but a legal obligation to repay, represented as an entry on the liability side of the borrower's balance sheet that mirrors and offsets the money asset received. Importantly, this obligation does not end with the lender. By taking on debt, the entrepreneur is permitted to consume goods and services in the market prior to offering any in return. In doing so, he or she commits not only to repaying the lender, but to repaying the market itself. That is, repaying the lender requires reentering the market as a seller, offering goods and services in exchange for those previously consumed.</p>
+
+        <p>In this way, the loan imposes not just a legal obligation, but also an economic one, understood as the requirement to return to the market something of equivalent value to what was taken. So, if money represents economic rights, then debt representes their counterforce: just as the money asset grants its holder the right to draw commodities from the market, a formal debt obligation binds the borrower to deliver commodities back to it.</p>
+
+        <p>But while interrelated, economic rights and economic obligations are not mutually dependent. Just as money (economic rights) can come into existence without the simultaneous creation of formal debt liabilities, so too can formal debt liabilities (economic obligations) come into existence without the simultaneous creation of money. To see this, consider how lending does not expand the overall stock of economic rights, but instead reallocates them. What it does expand is the total volume of economic obligations: each loan adds a new promise to return goods and services to the market. Or, at least, such is the case when the borrower decides to spent the borrowed money. However, the picture changes somewhat when the borrower is a financial intermediary. Here, the intermediary will not exercise the right at all, but instead pass it on, relending the money to a third party while earning a spread on the interest rate. This adds to the volume of legal obligations, since both the intermediary and the final borrower are now formally liable. But it does not increase the stock of economic obligations, because the intermediary has not drawn from the market’s pool of goods and services. The right has been transferred, not exercised. And so, the obligation to return goods and services to the market remains solely with the final recipient who spends the funds. Said differently, the same money unit can generate a chain of legal debts, but only a single economic debt, namely the obligation of the ultimate spender to return to the market something of equal value to what was taken.</p>
+
+        <p>Now, the creditor-debtor relation, constituted in the act of lending, is entered into with the formal understanding that it will eventually be resolved. And in principle, there are only two ways it can unfold. Either the borrower repays the lender, or the borrower defaults. Yet, only the first brings the relation to its intended close. Here, the borrower has succeeded in returning to the market something of equal value to what was initially drawn from it. Using the proceeds, the borrower transfers back to the lender the borrowed funds (plus interest) and with them, the economic rights originally surrendered. But if the borrower cannot obtain the money — whether because the goods are unsalable, prices fall, or demand dries up — the loan cannot be repaid. The obligation then dissolves into a loss for the lender. And so, the lender’s right to draw resources has vanished, as the borrower has already exercised that right in the earlier spending. The obligation, therefore, is not fulfilled through repayment, but extinguished through default.</p>
+
+                <!-- Arrow container -->
+
+                <div class="arrow-container">
+                    <a href="On The Nature of Finance.html" class="arrow-link">
+                        <span class="arrow left-arrow">←</span>
+                    </a>
+                    <a href="Banking.html" class="arrow-link right-arrow">
+                        <span class="arrow">→</span>
+                    </a>
+                </div>
+
+        <!-- Comments Section -->
+        <div id="comment-section" class="comments-section">
+            <form id="comment-form">
+                <input type="text" id="name" placeholder="Your Name" required><br><br>
+                <textarea id="comment" placeholder="Your Comment" rows="5" required></textarea><br><br>
+                <button type="submit">Submit Comment</button>
+            </form>
+            <div id="comments-container"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const commentForm = document.getElementById('comment-form');
+            const commentsContainer = document.getElementById('comments-container');
+
+            function createComment(name, text) {
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment-box');
+
+                commentDiv.innerHTML = `
+                    <div class="comment-header">
+                        <button type="button" class="toggle-comment" aria-label="Toggle comment">−</button>
+                        <span class="comment-author">${name}</span>
+                    </div>
+                    <div class="comment-body">
+                        <p>${text}</p>
+                        <div class="comment-actions">
+                            <span class="reply-btn">Reply to ${name}</span>
+                        </div>
+                        <div class="reply-container"></div>
+                    </div>
+                `;
+
+                const toggleBtn = commentDiv.querySelector('.toggle-comment');
+                toggleBtn.onclick = () => {
+                    const collapsed = commentDiv.classList.toggle('collapsed');
+                    toggleBtn.textContent = collapsed ? '+' : '−';
+
+                    // Also collapse/expand all nested replies
+                    const replyContainer = commentDiv.querySelector('.reply-container');
+                    if (replyContainer) {
+                        replyContainer.style.display = collapsed ? 'none' : 'block';
+                    }
+                };
+
+                commentDiv.querySelector('.reply-btn').onclick = function () {
+                    if (commentDiv.querySelector('.reply-form')) return;
+
+                    const parentAuthor = commentDiv.querySelector('.comment-author').textContent;
+                    const replyForm = document.createElement('form');
+                    replyForm.classList.add('reply-form');
+                    replyForm.innerHTML = `
+                        <div style="margin-bottom: 8px; font-size: 0.9em; color: #666;">Replying to ${parentAuthor}</div>
+                        <input type="text" placeholder="Your Name" required><br><br>
+                        <textarea placeholder="Your Reply" rows="3" required></textarea><br><br>
+                        <button type="submit">Submit Reply</button>
+                    `;
+
+                    commentDiv.querySelector('.comment-body').appendChild(replyForm);
+
+                    replyForm.onsubmit = function (e) {
+                        e.preventDefault();
+                        const replyName = replyForm.querySelector('input').value;
+                        const replyText = replyForm.querySelector('textarea').value;
+
+                        commentDiv.querySelector('.reply-container').appendChild(createComment(replyName, replyText));
+                        replyForm.remove();
+                    };
+                };
+
+                return commentDiv;
+            }
+
+            commentForm.onsubmit = function (e) {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const comment = document.getElementById('comment').value;
+
+                commentsContainer.prepend(createComment(name, comment));
+                commentForm.reset();
+            };
+        });
+    </script>
+
+</body>
+</html>

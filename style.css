@@ -1,0 +1,516 @@
+/* Import EB Garamond font */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Gloock&display=swap');
+
+/* General Page Styling */
+body {
+    font-family: 'EB Garamond', serif;
+    margin: 0;
+    padding: 00px;
+    background-color: #f6f3ef;
+    display: block; /* Change from flex to block */
+    text-align: justify;
+}
+
+h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 65px;
+  letter-spacing: 0px;
+  text-align: left;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  line-height: 1.1; /* reduces spacing between lines */
+  font-weight: normal;   /* removes automatic bold */
+}
+
+h1.home-title {
+  font-size: 70px;
+  text-align: left;
+  font-weight: bold; /* makes it bold */
+}
+
+h1.about-title {
+  font-size: 45px;
+  text-align: left;
+  margin-top: 0px;
+  margin-bottom: 70px;
+}
+
+
+a, a:visited, a:hover, a:active {
+    color: black;
+    text-decoration: none !important;
+    cursor: crosshair;
+}
+
+/* Content Container */
+.container {
+    width: 60%; /* Keeps text centered */
+    max-width: 700px;
+    padding: 20px;
+    margin: 50px auto; /* Centers text */
+    position: relative;
+}
+
+/* Paragraph Formatting */
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 40px;  /* Add space between paragraphs */
+}
+
+/* Drop Cap Styling */
+.dropcap {
+    font-size: 60px;  /* Large drop cap size */
+    font-weight: normal;  /* No bold effect */
+    float: left;
+    margin-right: 10px;
+    margin-top: 0px;
+    line-height: 0.85;
+    display: block;
+}
+
+/* Footnote Number Styling */
+.footnote {
+    position: relative;
+    cursor: crosshair;
+    font-size: 12px;  /* Smaller, superscript-style font */
+    font-weight: italic;
+    color: rgb(0, 0, 0);
+    background: rgb(231, 231, 231);  /* Light gray background */
+    border-radius: 3px;  /* Rounded corners */
+    padding: 2px 6px;  /* Creates a square-like shape */
+    text-decoration: none;
+    vertical-align: super; /* Raises it slightly */
+}
+
+/* Footnote Tooltip - Placed on the Right Side */
+.footnote::after {
+    content: attr(data-footnote);  /* Get text from data-footnote attribute */
+    position: fixed;  /* Fixed positioning to appear outside main text */
+    right: 80px;  /* Position near the right margin */
+    top: 12%;  /* Center it vertically */
+    background: none;  /* No background */
+    color: black;  /* Normal text color */
+    font-size: 12px;
+    font-style: italic;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;  /* Prevents interaction issues */
+    max-width: 250px;  /* Ensures text doesn't stretch too much */
+    white-space: wrap;  /* Allows wrapping for longer footnotes */
+}
+
+/* Show footnote on hover */
+.footnote:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Top Border - Centered */
+.content-box::before {
+    content: "";
+    position: absolute;
+    top: 35px; /* Adjust the distance from the content */
+    left: 50%; /* Move to the center */
+    width: 0%; /* Set width to 50% of content-box */
+    height: 1px;
+    background-color: black;
+    transform: translateX(-50%); /* Shift left by half its width for perfect centering */
+}
+
+/* Bottom-Left Corner Accent */
+.container .corner-bl {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-bottom: 3px solid #000;
+  border-left:   3px solid #000;
+}
+
+/* Bottom-Right Corner Accent */
+.container .corner-br {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-bottom: 3px solid #000;
+  border-right:  3px solid #000;
+}
+
+/* ↴↴↴ End of corner‐accent CSS ↴↴↴ */
+
+/* Arrow container, navbar, footer, etc. continue below… */
+
+.arrow-container {
+    position: relative; /* Ensures absolute arrows stay within this container */
+    width: 1200px; /* Ensures enough space */
+    max-width: 100%; /* Keeps it responsive */
+    height: 50px;
+    margin: 50px auto; /* Centers the container */
+}
+
+/* Left Arrow - Manually positioned */
+.left-arrow {
+    position: absolute;
+    left: 0px; /* Moves left arrow to the correct spot */
+}
+
+/* Right Arrow - Properly aligned to the right */
+.right-arrow {
+    position: absolute;
+    right: 0px; /* Moves right arrow to the correct spot */
+}
+
+/* General Arrow Styling */
+.arrow {
+    font-size: 24px;
+    color: black !important;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    text-decoration: none !important;
+    display: inline-block; /* Prevents strange spacing issues */
+}
+
+/* Ensure arrow links are not underlined */
+.arrow-link {
+    text-decoration: none !important;
+}
+
+/* Sticky Sidebar Navigation */
+.navbar {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 800; /* or 500 if you want a bit bolder */
+  letter-spacing: 1px;
+    width: 200px; /* Sidebar width */
+    height: 100vh; /* Full viewport height */
+    position: fixed; /* Makes it sticky */
+    top: 0;
+    left: 0; /* Moves sidebar to the right */
+    display: flex;
+    flex-direction: column; /* Stacks menu items vertically */
+    align-items: right; /* Centers text */
+    padding-top: 72px; /* Adds space at the top */
+}
+
+/* 3) Content sits to the right of the sidebar */
+.content {
+  margin-left: 200px;   /* same as .navbar width */
+  padding: 24px;
+  text-align: right;     /* override any global centering */
+}
+
+/* Style for the List Inside Navbar */
+.nav-links {
+    list-style: none; /* Removes bullets */
+    padding: 0;
+    margin: 0;
+    width: 100%; /* Full width of the sidebar */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: stretch;
+}
+
+/* Style for the Individual Menu Items */
+.nav-links li {
+    margin: 0px 0; /* Adds spacing between items */
+}
+
+/* Style for the Links */
+.nav-links a {
+    text-decoration: none;
+    color: rgb(0, 0, 0); /* Black text */
+    font-size: 15px;
+    font-weight: 600 !important;
+    transition: color 0.3s ease-in-out;
+    display: block; /* Makes the entire line clickable */
+    padding: 10px 16px;
+    width: 100%; /* Full width of sidebar */
+    text-align: left;
+}
+
+/* Hover Effect */
+.nav-links a:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Light hover effect */
+}
+
+/* Load Oswald (used in headings and comment area) */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+  /* Spacing for ordered lists */
+  ol {
+    padding-left: 20px;
+    margin-bottom: 40px;
+}
+
+ol li {
+    margin-bottom: 1.2em;
+    line-height: 1.6;
+    font-style: italic;
+    font-size: 1px;               /* adjust size as needed */
+}
+
+h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;               /* adjust size as needed */
+    letter-spacing: 0.5px;         /* optional: makes it more elegant */
+    margin-top: 60px;              /* spacing above */
+    margin-bottom: 30px;           /* spacing below */
+    font-weight: bold;
+}
+
+/* Comment Section Styling */
+#comment-section {
+    font-family: 'Oswald', sans-serif;
+    max-width: 700px;
+    margin-top: 50px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-sizing: border-box;
+    font-size: 14px; /* base for the section */
+}
+
+#comment-section br {
+    display: none;
+}
+
+#name, #comment {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+#comment-section p {
+    font-size: 1em;
+    line-height: 1.5; /* stop the 18px global p */
+}
+
+#comment-form,
+.reply-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+#comment-section input,
+#comment-section textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #000000;
+    border-radius: 0;
+    font-family: inherit;
+    font-size: 16px;
+    background: #ededed;
+    resize: none;
+    color: #000000;
+}
+
+#comment-section textarea {
+    min-height: 120px;
+}
+
+#comment-section input::placeholder,
+#comment-section textarea::placeholder {
+    font-family: 'Oswald', sans-serif;
+    color: #000000 !important; /* ensure placeholder text is black */
+}
+
+#comment-section button,
+.reply-form button {
+    padding: 8px 14px;
+    background-color: #000000;
+    color: white !important;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    align-self: flex-start;
+    font-size: 0.95em;
+    font-family: inherit;
+}
+
+#comment-section button:hover,
+.reply-form button:hover {
+    background-color: #000000;
+}
+
+#comment-section input:focus,
+#comment-section textarea:focus,
+.reply-form input:focus,
+.reply-form textarea:focus {
+    border-color: #000000;
+    outline: none;
+}
+
+#comments-container {
+    margin-top: 24px;
+    position: relative;
+    display: grid;
+    gap: 16px;
+}
+
+#comments-container :not(button) {
+    color: #000000 !important;
+}
+
+.comment-box {
+    background: none;
+    border: none;
+    --thread-gap: 16px;
+    padding: 12px 0 var(--thread-gap) 0;
+    position: relative;
+    color: #000000;
+}
+
+.comment-box p,
+.comment-author,
+.comment-actions,
+.reply-btn {
+    color: #000000;
+}
+
+/* Single horizontal line per top-level thread */
+#comments-container > .comment-box::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #000000;
+}
+
+/* Smaller type just in the comment section */
+#comment-section input,
+#comment-section textarea,
+#comment-section button {
+    font-size: 0.95em;
+}
+
+/* Reply Button */
+.reply-btn {
+    position: static;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #000000;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.toggle-comment {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    font-weight: bold;
+}
+
+.toggle-comment:hover {
+    background-color: #f0f0f0;
+    border-radius: 3px;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-body {
+    margin-left: 0; /* simplified alignment */
+    padding-left: 34px; /* align under header after toggle */
+}
+
+.comment-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+    padding-bottom: 8px;
+}
+
+.comment-box.collapsed .comment-body {
+    display: none;
+}
+
+/* Graphical Threading for Replies */
+.reply-container {
+    position: relative;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+
+/* Each comment in reply container */
+.reply-container > .comment-box {
+    padding: 8px 0 8px 40px;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+/* Vertical line from parent comment down to replies */
+.comment-box:has(> .comment-body > .reply-container:not(:empty))::after {
+    content: "";
+    position: absolute;
+    left: 0px; /* Position: 34px (body padding) + 12px (toggle offset) */
+    top: 20px; /* Start below the comment header */
+    bottom: 0;
+    width: 2px;
+    background: #cccccc;
+}
+
+/* Horizontal line from parent's vertical line to each reply */
+.reply-container > .comment-box::before {
+    content: "";
+    position: absolute;
+    left: -34px; /* Start from parent's body padding position */
+    top: 20px;
+    width: 34px; /* Width to connect to reply start */
+    height: 2px;
+    background: #cccccc;
+}
+
+/* Hide replies when parent is collapsed */
+.comment-box.collapsed .reply-container {
+    display: none;
+}
+
+/* Hide parent's vertical line when collapsed */
+.comment-box.collapsed::after {
+    display: none;
+}
+
+/* Reply Form Styling */
+.reply-form {
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+/* All threading lines use the same color */
+
+  /* Apply subtle shadow on hover for all links except arrow links */
+a:not(.arrow-link):hover {
+    background-color: #c4c4c4; /* Light grey background on hover */
+}

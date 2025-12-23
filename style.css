@@ -176,7 +176,7 @@ p {
 .arrow {
     font-size: 24px;
     color: black !important;
-    cursor: pointer;
+    cursor: crosshair;
     transition: color 0.3s ease-in-out;
     text-decoration: none !important;
     display: inline-block; /* Prevents strange spacing issues */

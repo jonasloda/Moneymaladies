@@ -172,7 +172,7 @@ p {
     transition: opacity 0.3s ease-in-out;
     pointer-events: none;  /* Prevents interaction issues */
     max-width: 250px;  /* Ensures text doesn't stretch too much */
-    white-space: pre-wrap;  /* Preserves line breaks and allows wrapping */
+    white-space: normal;  /* Normal wrapping without preserving source line breaks */
     line-height: 1.6;  /* Add breathing room between lines */
 }
 

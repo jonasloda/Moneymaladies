@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug TOC Close</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="toc-navbar">
+        <div class="toc-header">
+            <span>Table of Contents</span>
+            <span class="toc-menu-icon">≡</span>
+        </div>
+        <ul class="toc-links">
+            <li><a href="index.html">PREFACE</a></li>
+            <li class="toc-chapter">
+                <div class="toc-chapter-title">CH. 1: ON THE NATURE OF MONEY</div>
+                <ul class="toc-chapter-items">
+                    <li><a href="#">PRELUDE</a></li>
+                    <li><a href="#">A CREDIT VIEW</a></li>
+                </ul>
+            </li>
+            <li class="toc-chapter">
+                <div class="toc-chapter-title">CH. 2: ON THE NATURE OF FINANCE</div>
+                <ul class="toc-chapter-items">
+                    <li><a href="#">PRELUDE</a></li>
+                    <li><a href="#">LENDING</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div style="margin: 50px; padding: 20px; background: white;">
+        <h1>Click here (outside TOC) to test close behavior</h1>
+        <div id="log" style="border: 1px solid black; padding: 10px; margin-top: 20px; font-family: monospace; white-space: pre-wrap;"></div>
+    </div>
+
+    <script>
+        const logDiv = document.getElementById('log');
+        function log(msg) {
+            logDiv.textContent += new Date().toLocaleTimeString() + ': ' + msg + '\n';
+            console.log(msg);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const tocNavbar = document.querySelector('.toc-navbar');
+            const tocHeader = document.querySelector('.toc-header');
+            const chapterTitles = document.querySelectorAll('.toc-chapter-title');
+            const chapters = document.querySelectorAll('.toc-chapter');
+
+            log('DOM loaded, found ' + chapters.length + ' chapters');
+
+            // TOC navbar toggle
+            if (tocHeader) {
+                tocHeader.addEventListener('click', function(e) {
+                    tocNavbar.classList.toggle('active');
+                    log('TOC header clicked, active=' + tocNavbar.classList.contains('active'));
+                });
+            }
+
+            // Close navbar when clicking outside
+            document.addEventListener('click', function(e) {
+                if (tocNavbar && !tocNavbar.contains(e.target)) {
+                    const wasActive = tocNavbar.classList.contains('active');
+                    log('Click outside detected, wasActive=' + wasActive);
+
+                    tocNavbar.classList.remove('active');
+
+                    // Reset chapters to default state when TOC closes
+                    if (wasActive) {
+                        log('Resetting chapters to collapsed...');
+                        chapters.forEach((chapter, i) => {
+                            chapter.classList.add('collapsed');
+                            log('  Chapter ' + i + ' now has collapsed=' + chapter.classList.contains('collapsed'));
+                        });
+                    }
+                }
+            });
+
+            // Chapter accordion toggle
+            chapterTitles.forEach(title => {
+                title.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const chapter = this.parentElement;
+                    const wasExpanded = !chapter.classList.contains('collapsed');
+                    log('Chapter clicked, wasExpanded=' + wasExpanded);
+
+                    // Collapse all chapters first
+                    chapters.forEach(ch => ch.classList.add('collapsed'));
+
+                    // If the clicked chapter was collapsed, expand it
+                    if (!wasExpanded) {
+                        chapter.classList.remove('collapsed');
+                    }
+                });
+            });
+
+            // Start with all chapters collapsed
+            log('Initializing all chapters as collapsed...');
+            chapters.forEach((chapter, i) => {
+                chapter.classList.add('collapsed');
+                log('  Chapter ' + i + ' collapsed=' + chapter.classList.contains('collapsed'));
+            });
+        });
+    </script>
+
+</body>
+</html>

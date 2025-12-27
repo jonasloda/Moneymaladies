@@ -10,10 +10,40 @@
 <body>
 
     <nav class="navbar">
+        <div class="navbar-header">
+            <span>Bookshelf</span>
+            <span class="menu-icon">≡</span>
+        </div>
         <ul class="nav-links">
             <li><a href="index.html">MONEY MALADIES</a></li>
             <li><a href="front-page-cbdc.html">DIGITALE CENTRALBANKPENGE</a></li>
-            <li><a href="møntiggørelsen.html">MØNTIGGØRELSEN</a></li>
+            <li><span class="active">MØNTIGGØRELSEN</span></li>
+        </ul>
+    </nav>
+
+    <!-- Table of Contents Navbar -->
+    <nav class="toc-navbar">
+        <div class="toc-header">
+            <span>Contents</span>
+            <span class="toc-menu-icon">≡</span>
+        </div>
+        <ul class="toc-links">
+            <li><a href="møntiggørelsen.html">FORORD</a></li>
+            <li><a href="Hvem skaber penge.html">HVEM SKABER PENGENE?</a></li>
+            <li><a href="Kan banker skabe penge ad libitum.html">KAN BANKER SKABE PENGE AD LIBITUM?</a></li>
+            <li><a href="Hvad er en centralbank.html">HVAD ER EN CENTRALBANK?</a></li>
+            <li><a href="Hvordan fungerer pensionssystemet.html">HVORDAN FUNGERER PENSIONSSYSTEMET?</a></li>
+            <li><a href="Hvad skaber inflation.html">HVAD SKABER INFLATION?</a></li>
+            <li><a href="Hvor kommer profit og renter fra.html">HVOR KOMMER PROFIT OG RENTER FRA?</a></li>
+            <li><a href="Hvordan håndhæves finansielle sanktioner.html">HVORDAN HÅNDHÆVES FINANSIELLE SANKTIONER?</a></li>
+            <li><a href="Hvad er skyggebankvirksomhed.html">HVAD ER SKYGGEBANKVIRKSOMHED?</a></li>
+            <li><a href="Hvad er nykolonialisme.html">HVAD ER NYKOLONIALISME?</a></li>
+            <li><span class="active">HVAD ER BASEL III?</span></li>
+            <li><a href="Hvad er aktier.html">HVAD ER AKTIER?</a></li>
+            <li><a href="Hvad er sekuritisering.html">HVAD ER SEKURITISERING?</a></li>
+            <li><a href="Hvad er diskontering.html">HVAD ER DISKONTERING?</a></li>
+            <li><a href="Hvad er realkredit.html">HVAD ER REALKREDIT?</a></li>
+            <li><a href="Hvad er derivater.html">HVAD ER DERIVATER?</a></li>
         </ul>
     </nav>
 
@@ -180,6 +210,118 @@
         };
     });
 </script>
-        
+
+<!-- Custom Scrollbar -->
+<div id="custom-scrollbar">
+    <div id="custom-scrollbar-thumb"></div>
+</div>
+
+<script>
+// Custom Scrollbar JavaScript
+(function() {
+    const scrollContent = document.documentElement;
+    const scrollbar = document.getElementById('custom-scrollbar');
+    const thumb = document.getElementById('custom-scrollbar-thumb');
+
+    function updateScrollbar() {
+        const scrollHeight = scrollContent.scrollHeight;
+        const clientHeight = scrollContent.clientHeight;
+        const scrollTop = scrollContent.scrollTop || document.body.scrollTop;
+
+        // Calculate thumb height and position
+        const thumbHeight = Math.max((clientHeight / scrollHeight) * clientHeight, 30);
+        const thumbTop = (scrollTop / scrollHeight) * clientHeight;
+
+        thumb.style.height = thumbHeight + 'px';
+        thumb.style.top = thumbTop + 'px';
+    }
+
+    // Update on scroll
+    window.addEventListener('scroll', updateScrollbar);
+    window.addEventListener('resize', updateScrollbar);
+
+    // Dragging functionality
+    let isDragging = false;
+    let startY = 0;
+    let startScrollTop = 0;
+
+    thumb.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        startY = e.clientY;
+        startScrollTop = scrollContent.scrollTop || document.body.scrollTop;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+
+        const deltaY = e.clientY - startY;
+        const scrollHeight = scrollContent.scrollHeight;
+        const clientHeight = scrollContent.clientHeight;
+        const scrollDelta = (deltaY / clientHeight) * scrollHeight;
+
+        window.scrollTo(0, startScrollTop + scrollDelta);
+    });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+    // Click on track to jump
+    scrollbar.addEventListener('click', function(e) {
+        if (e.target === thumb) return;
+
+        const rect = scrollbar.getBoundingClientRect();
+        const clickY = e.clientY - rect.top;
+        const scrollHeight = scrollContent.scrollHeight;
+        const clientHeight = scrollContent.clientHeight;
+
+        window.scrollTo(0, (clickY / clientHeight) * scrollHeight);
+    });
+
+    // Initial update
+    updateScrollbar();
+})();
+</script>
+
+<!-- Navbar Toggle Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Main navbar toggle
+        const navbar = document.querySelector('.navbar');
+        const navbarHeader = document.querySelector('.navbar-header');
+
+        if (navbarHeader) {
+            navbarHeader.addEventListener('click', function(e) {
+                navbar.classList.toggle('active');
+            });
+        }
+
+        // Close navbar when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navbar && !navbar.contains(e.target)) {
+                navbar.classList.remove('active');
+            }
+        });
+
+        // TOC navbar toggle
+        const tocNavbar = document.querySelector('.toc-navbar');
+        const tocHeader = document.querySelector('.toc-header');
+
+        if (tocHeader) {
+            tocHeader.addEventListener('click', function(e) {
+                tocNavbar.classList.toggle('active');
+            });
+        }
+
+        // Close TOC navbar when clicking outside
+        document.addEventListener('click', function(e) {
+            if (tocNavbar && !tocNavbar.contains(e.target)) {
+                tocNavbar.classList.remove('active');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -10,10 +10,41 @@
 <body>
 
     <nav class="navbar">
+        <div class="navbar-header">
+            <span>Bookshelf</span>
+            <span class="menu-icon">≡</span>
+        </div>
         <ul class="nav-links">
-            <li><a href="index.html">MONEY MALADIES</a></li>
+            <li><span class="active">MONEY MALADIES</span></li>
             <li><a href="front-page-cbdc.html">DIGITALE CENTRALBANKPENGE</a></li>
             <li><a href="møntiggørelsen.html">MØNTIGGØRELSEN</a></li>
+        </ul>
+    </nav>
+    <nav class="toc-navbar">
+        <div class="toc-header">
+            <span>Table of Contents</span>
+            <span class="toc-menu-icon">≡</span>
+        </div>
+        <ul class="toc-links">
+            <li><a href="index.html">PREFACE</a></li>
+            <li class="toc-chapter">
+                <div class="toc-chapter-title">CH. 1: ON THE NATURE OF MONEY</div>
+                <ul class="toc-chapter-items">
+                    <li><a href="on-the-nature-of-money-prelude.html">PRELUDE</a></li>
+                    <li><a href="a-credit-view-of-money.html">A CREDIT VIEW</a></li>
+                    <li><a href="an-accounting-view-of-money.html">AN ACCOUNTING VIEW</a></li>
+                    <li><a href="moneyness-money-on-a-spectrum.html">MONEYNESS</a></li>
+                    <li><a href="on-the-nature-of-money-postlude.html">POSTLUDE</a></li>
+                </ul>
+            </li>
+            <li class="toc-chapter">
+                <div class="toc-chapter-title">CH. 2: ON THE NATURE OF FINANCE</div>
+                <ul class="toc-chapter-items">
+                    <li><a href="on-the-nature-of-finance.html">PRELUDE</a></li>
+                    <li><a href="Lending.html">LENDING</a></li>
+                    <li><span class="active">BANKING</span></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
@@ -63,7 +94,7 @@
 
             <p>This relation, however, is inherently short-lived. The borrower does not incur debt merely to let the borrowed funds sit unused, as the interest payments would result in negative cash flow. Deposits therefore <em>“only come into existence the moment a payment is made”</em> (<a href="https://www.fclar.unesp.br/Home/Pesquisa/GruposdePesquisa/cemonde/graziani-1990---the-theory-of-the-monetary-circuit.pdf" target="_blank">Graziani 1989</a>, p. 11), implying the involvement of a receiving party, or payee, in the loan process. Suppose, for instance, a borrower takes out a loan to purchase a car from a dealer. The borrower becomes the payor, the car dealer the payee, and the newly created deposit is transferred from the former to the latter. Once this transfer occurs, the bank is no longer indebted to the payor but to the payee, while the payor remains indebted to the bank. Thus, the initial debtor–debtor relation between payor and bank dissolves, giving way to two distinct creditor–debtor relations: the payor as debtor to the bank, and the bank as debtor to the payee. In this respect, modern banking is identical to its early counterpart: the bank stands between two parties, the buyer and the seller, lending money to the former and owing money to the latter.
                 
-            <p>By recording the payor as its debtor and the payee as its creditor, the bank inserts itself between the two parties, thereby intermediating the transaction. In doing so, it records the payee’s contribution to the economy—selling the car—alongside the payor’s share in consuming it. Viewed through the lens of the account view, the payor thus assumes an obligation to provide services equal in value to the car acquired, while the payee acquires the right to command goods of equal value in return. In this capacity, banks can be thought of as managing the virtual ledger of the economy—using <em>promise-of-work accounting</em>—constantly updating it as they facilitate payments. That is, they record what individuals and businesses add to the economic process and what they draw from it, assigning the economic rights and obligations that follow. In this sense, banks are indeed, as Schumpeter (<a href="https://books.google.dk/books?id=-OZwWcOGeOwC&printsec=frontcover&hl=da&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false" target="_blank">1934</a>, p. 74) wrote, <em>“the ephor[s] of the exchange economy”</em><sup class="footnote" data-footnote="Ephor comes from the Greek éphoroi, meaning overseers.">4</sup>.</p> 
+            <p>By recording the payor as its debtor and the payee as its creditor, the bank inserts itself between the two parties, thereby intermediating the transaction. In doing so, it records the payee’s contribution to the economy—selling the car—alongside the payor’s share in consuming it. Viewed through the lens of the accounting view, the payor thus assumes an obligation to provide services equal in value to the car acquired, while the payee acquires the right to command goods of equal value in return. In this capacity, banks can be thought of as managing the virtual ledger of the economy—using <em>promise-of-work accounting</em>—constantly updating it as they facilitate payments. That is, they record what individuals and businesses add to the economic process and what they draw from it, assigning the economic rights and obligations that follow. In this sense, banks are indeed, as Schumpeter (<a href="https://books.google.dk/books?id=-OZwWcOGeOwC&printsec=frontcover&hl=da&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false" target="_blank">1934</a>, p. 74) wrote, <em>“the ephor[s] of the exchange economy”</em><sup class="footnote" data-footnote="Ephor comes from the Greek éphoroi, meaning overseers.">4</sup>.</p> 
             
             <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
                 <img src="Billeder/car dealer.png" alt="An Accounting View of Banking" width="600px">
@@ -185,6 +216,151 @@
 </script>
 
     </div>
+
+    <!-- Custom Scrollbar -->
+    <div id="custom-scrollbar">
+        <div id="custom-scrollbar-thumb"></div>
+    </div>
+
+    <script>
+    // Custom Scrollbar JavaScript
+    (function() {
+        const scrollContent = document.documentElement;
+        const scrollbar = document.getElementById('custom-scrollbar');
+        const thumb = document.getElementById('custom-scrollbar-thumb');
+
+        function updateScrollbar() {
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+            const scrollTop = scrollContent.scrollTop || document.body.scrollTop;
+
+            const thumbHeight = Math.max((clientHeight / scrollHeight) * clientHeight, 30);
+            const thumbTop = (scrollTop / scrollHeight) * clientHeight;
+
+            thumb.style.height = thumbHeight + 'px';
+            thumb.style.top = thumbTop + 'px';
+        }
+
+        window.addEventListener('scroll', updateScrollbar);
+        window.addEventListener('resize', updateScrollbar);
+
+        let isDragging = false;
+        let startY = 0;
+        let startScrollTop = 0;
+
+        thumb.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startY = e.clientY;
+            startScrollTop = scrollContent.scrollTop || document.body.scrollTop;
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+
+            const deltaY = e.clientY - startY;
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+            const scrollDelta = (deltaY / clientHeight) * scrollHeight;
+
+            window.scrollTo(0, startScrollTop + scrollDelta);
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        scrollbar.addEventListener('click', function(e) {
+            if (e.target === thumb) return;
+
+            const rect = scrollbar.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+
+            window.scrollTo(0, (clickY / clientHeight) * scrollHeight);
+        });
+
+        updateScrollbar();
+    })();
+    </script>
+
+<!-- Navbar and TOC Toggle Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Main navbar toggle
+        const navbar = document.querySelector('.navbar');
+        const navbarHeader = document.querySelector('.navbar-header');
+
+        if (navbarHeader) {
+            navbarHeader.addEventListener('click', function(e) {
+                navbar.classList.toggle('active');
+            });
+        }
+
+        // TOC navbar toggle
+        const tocNavbar = document.querySelector('.toc-navbar');
+        const tocHeader = document.querySelector('.toc-header');
+
+        // Chapter accordion toggle
+        const chapterTitles = document.querySelectorAll('.toc-chapter-title');
+        const chapters = document.querySelectorAll('.toc-chapter');
+
+        if (tocHeader) {
+            tocHeader.addEventListener('click', function(e) {
+                const wasActive = tocNavbar.classList.contains('active');
+                tocNavbar.classList.toggle('active');
+
+                // Reset chapters to collapsed when closing TOC via header click
+                if (wasActive) {
+                    chapters.forEach((chapter) => {
+                        chapter.classList.add('collapsed');
+                    });
+                }
+            });
+        }
+
+        // Close both navbars when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navbar && !navbar.contains(e.target)) {
+                navbar.classList.remove('active');
+            }
+            if (tocNavbar && !tocNavbar.contains(e.target)) {
+                const wasActive = tocNavbar.classList.contains('active');
+                tocNavbar.classList.remove('active');
+
+                // Reset chapters to default state when TOC closes
+                if (wasActive) {
+                    chapters.forEach((chapter) => {
+                        chapter.classList.add('collapsed');
+                    });
+                }
+            }
+        });
+
+        chapterTitles.forEach(title => {
+            title.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent closing TOC when clicking chapter
+                const chapter = this.parentElement;
+                const wasExpanded = !chapter.classList.contains('collapsed');
+
+                // Collapse all chapters first
+                chapters.forEach(ch => ch.classList.add('collapsed'));
+
+                // If the clicked chapter was collapsed, expand it
+                if (!wasExpanded) {
+                    chapter.classList.remove('collapsed');
+                }
+            });
+        });
+
+        // Start with all chapters collapsed
+        chapters.forEach((chapter) => {
+            chapter.classList.add('collapsed');
+        });
+    });
+</script>
 
 </body>
 </html>

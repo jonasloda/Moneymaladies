@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Collapse</title>
+    <style>
+        .toc-chapter.collapsed .toc-chapter-items {
+            max-height: 0;
+            overflow: hidden;
+        }
+        .toc-chapter-items {
+            max-height: 500px;
+            transition: max-height 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="testCollapse()">Test Collapse All</button>
+    <button onclick="checkState()">Check State</button>
+
+    <ul>
+        <li class="toc-chapter">
+            <div>CH 1</div>
+            <ul class="toc-chapter-items">
+                <li>Item 1</li>
+                <li>Item 2</li>
+            </ul>
+        </li>
+        <li class="toc-chapter">
+            <div>CH 2</div>
+            <ul class="toc-chapter-items">
+                <li>Item 3</li>
+                <li>Item 4</li>
+            </ul>
+        </li>
+    </ul>
+
+    <div id="output"></div>
+
+    <script>
+        const chapters = document.querySelectorAll('.toc-chapter');
+
+        function testCollapse() {
+            console.log('Collapsing all chapters...');
+            chapters.forEach((chapter) => {
+                chapter.classList.add('collapsed');
+                console.log('Added collapsed to:', chapter);
+            });
+            checkState();
+        }
+
+        function checkState() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<h3>Current State:</h3>';
+            chapters.forEach((chapter, i) => {
+                const hasClass = chapter.classList.contains('collapsed');
+                output.innerHTML += `<p>Chapter ${i + 1}: ${hasClass ? 'COLLAPSED' : 'EXPANDED'}</p>`;
+            });
+        }
+
+        // Initialize
+        checkState();
+    </script>
+</body>
+</html>

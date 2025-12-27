@@ -10,10 +10,41 @@
 <body>
 
     <nav class="navbar">
+        <div class="navbar-header">
+            <span>Bookshelf</span>
+            <span class="menu-icon">≡</span>
+        </div>
         <ul class="nav-links">
-            <li><a href="index.html">MONEY MALADIES</a></li>
+            <li><span class="active">MONEY MALADIES</span></li>
             <li><a href="front-page-cbdc.html">DIGITALE CENTRALBANKPENGE</a></li>
-            <li><a href="Front Page.html">MØNTIGGØRELSEN</a></li>
+            <li><a href="møntiggørelsen.html">MØNTIGGØRELSEN</a></li>
+        </ul>
+    </nav>
+    <nav class="toc-navbar">
+        <div class="toc-header">
+            <span>Table of Contents</span>
+            <span class="toc-menu-icon">≡</span>
+        </div>
+        <ul class="toc-links">
+            <li><a href="index.html">PREFACE</a></li>
+            <li class="toc-chapter">
+                <div class="toc-chapter-title">CH. 1: ON THE NATURE OF MONEY</div>
+                <ul class="toc-chapter-items">
+                    <li><a href="on-the-nature-of-money-prelude.html">PRELUDE</a></li>
+                    <li><a href="a-credit-view-of-money.html">A CREDIT VIEW</a></li>
+                    <li><a href="an-accounting-view-of-money.html">AN ACCOUNTING VIEW</a></li>
+                    <li><a href="moneyness-money-on-a-spectrum.html">MONEYNESS</a></li>
+                    <li><span class="active">POSTLUDE</span></li>
+                </ul>
+            </li>
+            <li class="toc-chapter">
+                <div class="toc-chapter-title">CH. 2: ON THE NATURE OF FINANCE</div>
+                <ul class="toc-chapter-items">
+                    <li><a href="on-the-nature-of-finance.html">PRELUDE</a></li>
+                    <li><a href="Lending.html">LENDING</a></li>
+                    <li><a href="Banking.html">BANKING</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
@@ -162,6 +193,151 @@
         };
     });
 </script>
-  
+
+    <!-- Custom Scrollbar -->
+    <div id="custom-scrollbar">
+        <div id="custom-scrollbar-thumb"></div>
+    </div>
+
+    <script>
+    // Custom Scrollbar JavaScript
+    (function() {
+        const scrollContent = document.documentElement;
+        const scrollbar = document.getElementById('custom-scrollbar');
+        const thumb = document.getElementById('custom-scrollbar-thumb');
+
+        function updateScrollbar() {
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+            const scrollTop = scrollContent.scrollTop || document.body.scrollTop;
+
+            const thumbHeight = Math.max((clientHeight / scrollHeight) * clientHeight, 30);
+            const thumbTop = (scrollTop / scrollHeight) * clientHeight;
+
+            thumb.style.height = thumbHeight + 'px';
+            thumb.style.top = thumbTop + 'px';
+        }
+
+        window.addEventListener('scroll', updateScrollbar);
+        window.addEventListener('resize', updateScrollbar);
+
+        let isDragging = false;
+        let startY = 0;
+        let startScrollTop = 0;
+
+        thumb.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startY = e.clientY;
+            startScrollTop = scrollContent.scrollTop || document.body.scrollTop;
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+
+            const deltaY = e.clientY - startY;
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+            const scrollDelta = (deltaY / clientHeight) * scrollHeight;
+
+            window.scrollTo(0, startScrollTop + scrollDelta);
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        scrollbar.addEventListener('click', function(e) {
+            if (e.target === thumb) return;
+
+            const rect = scrollbar.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+
+            window.scrollTo(0, (clickY / clientHeight) * scrollHeight);
+        });
+
+        updateScrollbar();
+    })();
+    </script>
+
+<!-- Navbar and TOC Toggle Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Main navbar toggle
+        const navbar = document.querySelector('.navbar');
+        const navbarHeader = document.querySelector('.navbar-header');
+
+        if (navbarHeader) {
+            navbarHeader.addEventListener('click', function(e) {
+                navbar.classList.toggle('active');
+            });
+        }
+
+        // TOC navbar toggle
+        const tocNavbar = document.querySelector('.toc-navbar');
+        const tocHeader = document.querySelector('.toc-header');
+
+        // Chapter accordion toggle
+        const chapterTitles = document.querySelectorAll('.toc-chapter-title');
+        const chapters = document.querySelectorAll('.toc-chapter');
+
+        if (tocHeader) {
+            tocHeader.addEventListener('click', function(e) {
+                const wasActive = tocNavbar.classList.contains('active');
+                tocNavbar.classList.toggle('active');
+
+                // Reset chapters to collapsed when closing TOC via header click
+                if (wasActive) {
+                    chapters.forEach((chapter) => {
+                        chapter.classList.add('collapsed');
+                    });
+                }
+            });
+        }
+
+        // Close both navbars when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navbar && !navbar.contains(e.target)) {
+                navbar.classList.remove('active');
+            }
+            if (tocNavbar && !tocNavbar.contains(e.target)) {
+                const wasActive = tocNavbar.classList.contains('active');
+                tocNavbar.classList.remove('active');
+
+                // Reset chapters to default state when TOC closes
+                if (wasActive) {
+                    chapters.forEach((chapter) => {
+                        chapter.classList.add('collapsed');
+                    });
+                }
+            }
+        });
+
+        chapterTitles.forEach(title => {
+            title.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent closing TOC when clicking chapter
+                const chapter = this.parentElement;
+                const wasExpanded = !chapter.classList.contains('collapsed');
+
+                // Collapse all chapters first
+                chapters.forEach(ch => ch.classList.add('collapsed'));
+
+                // If the clicked chapter was collapsed, expand it
+                if (!wasExpanded) {
+                    chapter.classList.remove('collapsed');
+                }
+            });
+        });
+
+        // Start with all chapters collapsed
+        chapters.forEach((chapter) => {
+            chapter.classList.add('collapsed');
+        });
+    });
+</script>
+
 </body>
 </html>

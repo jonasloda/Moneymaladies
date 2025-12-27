@@ -10,9 +10,13 @@
 <body>
 
     <nav class="navbar">
+        <div class="navbar-header">
+            <span>Bookshelf</span>
+            <span class="menu-icon">≡</span>
+        </div>
         <ul class="nav-links">
             <li><a href="index.html">MONEY MALADIES</a></li>
-            <li><a href="front-page-cbdc.html">DIGITALE CENTRALBANKPENGE</a></li>
+            <li><span class="active">DIGITALE CENTRALBANKPENGE</span></li>
             <li><a href="møntiggørelsen.html">MØNTIGGØRELSEN</a></li>
         </ul>
     </nav>
@@ -180,6 +184,95 @@
 </script>
 
     </div>
+
+    <!-- Custom Scrollbar -->
+    <div id="custom-scrollbar">
+        <div id="custom-scrollbar-thumb"></div>
+    </div>
+
+    <script>
+    // Custom Scrollbar JavaScript
+    (function() {
+        const scrollContent = document.documentElement;
+        const scrollbar = document.getElementById('custom-scrollbar');
+        const thumb = document.getElementById('custom-scrollbar-thumb');
+
+        function updateScrollbar() {
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+            const scrollTop = scrollContent.scrollTop || document.body.scrollTop;
+
+            const thumbHeight = Math.max((clientHeight / scrollHeight) * clientHeight, 30);
+            const thumbTop = (scrollTop / scrollHeight) * clientHeight;
+
+            thumb.style.height = thumbHeight + 'px';
+            thumb.style.top = thumbTop + 'px';
+        }
+
+        window.addEventListener('scroll', updateScrollbar);
+        window.addEventListener('resize', updateScrollbar);
+
+        let isDragging = false;
+        let startY = 0;
+        let startScrollTop = 0;
+
+        thumb.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startY = e.clientY;
+            startScrollTop = scrollContent.scrollTop || document.body.scrollTop;
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+
+            const deltaY = e.clientY - startY;
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+            const scrollDelta = (deltaY / clientHeight) * scrollHeight;
+
+            window.scrollTo(0, startScrollTop + scrollDelta);
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        scrollbar.addEventListener('click', function(e) {
+            if (e.target === thumb) return;
+
+            const rect = scrollbar.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+
+            window.scrollTo(0, (clickY / clientHeight) * scrollHeight);
+        });
+
+        updateScrollbar();
+    })();
+    </script>
+
+    <script>
+    // Navbar toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.navbar');
+        const navbarHeader = document.querySelector('.navbar-header');
+
+        if (navbarHeader) {
+            navbarHeader.addEventListener('click', function() {
+                navbar.classList.toggle('active');
+            });
+        }
+
+        // Close navbar when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navbar.contains(e.target)) {
+                navbar.classList.remove('active');
+            }
+        });
+    });
+    </script>
 
 </body>
 </html>

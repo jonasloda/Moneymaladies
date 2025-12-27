@@ -5,6 +5,22 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Gloock&display=swap');
 
+/* Hide link URL preview in bottom left corner */
+a[href]:after {
+    content: none !important;
+}
+
+/* Text Selection Color */
+::selection {
+    background-color: #c4c4c4; /* Dark grey like link hover */
+    color: black;
+}
+
+::-moz-selection {
+    background-color: #c4c4c4; /* Dark grey for Firefox */
+    color: black;
+}
+
 /* General Page Styling */
 body {
     font-family: 'EB Garamond', serif;
@@ -13,6 +29,53 @@ body {
     background-color: #f6f3ef;
     display: block; /* Change from flex to block */
     text-align: justify;
+    overflow-y: auto; /* Allow normal scrolling */
+}
+
+/* Hide native scrollbar for all browsers */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Custom Scrollbar Container */
+#custom-scrollbar {
+    position: fixed;
+    right: 0px;
+    top: 0;
+    width: 8px;
+    height: 100vh;
+    background: #f6f3ef;
+    z-index: 9999;
+    pointer-events: none; /* Allow scroll events to pass through */
+}
+
+/* Custom Scrollbar Thumb */
+#custom-scrollbar-thumb {
+    position: absolute;
+    right: 0;
+    width: 8px;
+    background: #000000;
+    cursor: pointer;
+    border-radius: 0; /* Perfect square corners */
+    pointer-events: auto; /* Enable clicking/dragging on thumb */
+}
+
+#custom-scrollbar-thumb:hover {
+    background: #333333;
 }
 
 h1 {
@@ -78,14 +141,20 @@ p {
 .footnote {
     position: relative;
     cursor: crosshair;
-    font-size: 12px;  /* Smaller, superscript-style font */
+    font-size: 8px;  /* Smaller font */
     font-weight: italic;
-    color: rgb(0, 0, 0);
-    background: rgb(231, 231, 231);  /* Light gray background */
-    border-radius: 3px;  /* Rounded corners */
-    padding: 2px 6px;  /* Creates a square-like shape */
+    color: rgb(0, 0, 0);  /* Black text (invisible on black background) */
+    background: rgb(0, 0, 0);  /* Black background */
+    border-radius: 0;  /* Square corners */
+    padding: 3px 3px;  /* Equal padding to make it square */
     text-decoration: none;
-    vertical-align: super; /* Raises it slightly */
+    vertical-align: middle; /* Align with middle of text */
+    line-height: 1;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    top: -2px; /* Move up to align with text */
+    margin: 0 3px; /* Add spacing around the box */
 }
 
 /* Footnote Tooltip - Placed on the Right Side */
@@ -103,7 +172,8 @@ p {
     transition: opacity 0.3s ease-in-out;
     pointer-events: none;  /* Prevents interaction issues */
     max-width: 250px;  /* Ensures text doesn't stretch too much */
-    white-space: wrap;  /* Allows wrapping for longer footnotes */
+    white-space: pre-wrap;  /* Preserves line breaks and allows wrapping */
+    line-height: 1.6;  /* Add breathing room between lines */
 }
 
 /* Show footnote on hover */
@@ -193,14 +263,57 @@ p {
   font-weight: 800; /* or 500 if you want a bit bolder */
   letter-spacing: 1px;
     width: 200px; /* Sidebar width */
-    height: 100vh; /* Full viewport height */
     position: fixed; /* Makes it sticky */
-    top: 0;
-    left: 0; /* Moves sidebar to the right */
+    top: 50%; /* Position in middle */
+    transform: translateY(-100%); /* Offset to position above middle */
+    left: -190px; /* Hide most of it off-screen */
     display: flex;
-    flex-direction: column; /* Stacks menu items vertically */
+    flex-direction: column-reverse; /* Reverse to put header at bottom */
     align-items: right; /* Centers text */
-    padding-top: 72px; /* Adds space at the top */
+    transition: left 0.3s ease-out; /* Smooth slide animation */
+}
+
+/* Slide navbar out when active (clicked) */
+.navbar.active {
+    left: 0; /* Show full navbar */
+}
+
+/* Container for navbar header and links */
+.navbar-header {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: black;
+    padding: 10px 16px;
+    margin-top: 0px; /* Reversed for bottom positioning */
+    margin-bottom: 10px; /* Reversed for bottom positioning */
+    text-align: left;
+    cursor: crosshair;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    position: relative;
+    transition: padding 0.3s ease-in-out; /* Only animate padding, not border */
+    width: 240px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-icon {
+    font-size: 28px;
+    transform: rotate(90deg);
+    display: inline-block;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+/* Remove top border when active to connect with nav-links (expanding upward) */
+.navbar.active .navbar-header {
+    border-top: none;
+    padding-top: 10px;
 }
 
 /* 3) Content sits to the right of the sidebar */
@@ -215,10 +328,26 @@ p {
     list-style: none; /* Removes bullets */
     padding: 0;
     margin: 0;
-    width: 100%; /* Full width of the sidebar */
+    width: 240px; /* Match navbar-header width */
+    max-height: 0; /* Hidden by default */
+    overflow: hidden;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column-reverse; /* Reverse to expand upward */
     align-items: stretch;
+    opacity: 0;
+    transition: max-height 0.15s ease-in, opacity 0.1s ease-in; /* Quick close */
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black; /* Top border when expanding upward */
+    border-bottom: none; /* No bottom border */
+    box-sizing: border-box;
+}
+
+/* Show nav-links when active (clicked) */
+.navbar.active .nav-links {
+    max-height: 200px; /* Large enough to show all items */
+    opacity: 1;
+    transition: max-height 0.25s ease-out, opacity 0.2s ease-out; /* Smooth open */
 }
 
 /* Style for the Individual Menu Items */
@@ -230,18 +359,300 @@ p {
 .nav-links a {
     text-decoration: none;
     color: rgb(0, 0, 0); /* Black text */
-    font-size: 15px;
+    font-size: 11px; /* Smaller font */
     font-weight: 600 !important;
-    transition: color 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     display: block; /* Makes the entire line clickable */
     padding: 10px 16px;
     width: 100%; /* Full width of sidebar */
     text-align: left;
+    position: relative;
+    cursor: crosshair;
 }
 
-/* Hover Effect */
+/* Move text right on hover to make room for arrow */
 .nav-links a:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Light hover effect */
+    padding-left: 28px;
+}
+
+/* Show arrow on hover */
+.nav-links a::before {
+    content: '→';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.nav-links a:hover::before {
+    opacity: 1;
+}
+
+/* Style for active page (non-link) */
+.nav-links span.active {
+    color: rgb(0, 0, 0); /* Black text */
+    font-size: 11px; /* Smaller font */
+    font-weight: 600 !important;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    padding: 10px 16px 10px 28px; /* Always indented to make room for arrow */
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+/* Active Page Styling - Show arrow for active page */
+.nav-links span.active::before {
+    content: '→';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+}
+
+/* Table of Contents - Left Side Below Middle */
+.toc-navbar {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 800;
+    letter-spacing: 1px;
+    width: 200px;
+    position: fixed;
+    top: 50%; /* Position in middle */
+    transform: translateY(0%); /* Position at middle */
+    left: -190px; /* Hide most of it off-screen */
+    display: flex;
+    flex-direction: column; /* Normal direction to expand downward */
+    align-items: right;
+    transition: left 0.3s ease-out;
+}
+
+/* Slide TOC navbar out when active (clicked) */
+.toc-navbar.active {
+    left: 0;
+}
+
+/* Container for TOC header and links */
+.toc-header {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: black;
+    padding: 10px 16px;
+    margin-bottom: 0px; /* Normal positioning for top */
+    margin-top: 10px; /* Normal positioning for top */
+    text-align: left;
+    cursor: crosshair;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    position: relative;
+    transition: padding 0.3s ease-in-out;
+    width: 240px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toc-menu-icon {
+    font-size: 28px;
+    transform: rotate(0deg); /* Horizontal lines for TOC */
+    display: inline-block;
+    line-height: 1;
+    margin-top: -2px; /* Adjust vertical centering */
+}
+
+/* Remove bottom border when active to connect with toc-links (expanding downward) */
+.toc-navbar.active .toc-header {
+    border-bottom: none;
+    padding-bottom: 10px;
+}
+
+/* Style for the TOC Links List */
+.toc-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 240px;
+    max-height: 0;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    display: flex;
+    flex-direction: column; /* Normal direction to expand downward */
+    align-items: stretch;
+    opacity: 0;
+    transition: max-height 0.15s ease-in, opacity 0.1s ease-in;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black; /* Bottom border when expanding downward */
+    border-top: none; /* No top border */
+    box-sizing: border-box;
+}
+
+/* Hide scrollbar for TOC links */
+.toc-links::-webkit-scrollbar {
+    width: 6px;
+}
+
+.toc-links::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.toc-links::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 0;
+}
+
+.toc-links::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Show toc-links when active (clicked) */
+.toc-navbar.active .toc-links {
+    max-height: 250px; /* Fixed height for TOC box - shorter to require more scrolling */
+    opacity: 1;
+    transition: max-height 0.25s ease-out, opacity 0.2s ease-out;
+}
+
+/* Style for TOC Individual Menu Items */
+.toc-links > li {
+    margin: 0px 0;
+}
+
+/* Chapter styling */
+.toc-chapter {
+    list-style: none;
+}
+
+.toc-chapter-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+    padding: 8px 16px;
+    cursor: crosshair;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    letter-spacing: 0.5px;
+}
+
+.toc-chapter-title:hover {
+    background-color: #e8e8e8;
+}
+
+.toc-chapter-title::before {
+    content: '▼';
+    position: absolute;
+    right: 16px;
+    font-size: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.toc-chapter.collapsed .toc-chapter-title::before {
+    transform: rotate(-90deg);
+}
+
+.toc-chapter-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.toc-chapter.collapsed .toc-chapter-items {
+    max-height: 0;
+}
+
+.toc-chapter-items li {
+    margin: 0;
+}
+
+/* Style for TOC Links */
+.toc-links a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 11px;
+    font-weight: 600 !important;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    padding: 10px 16px 10px 24px;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    cursor: crosshair;
+}
+
+/* Move text right on hover to make room for arrow */
+.toc-links a:hover {
+    padding-left: 36px;
+}
+
+/* Show arrow on hover for TOC links */
+.toc-links a::before {
+    content: '→';
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.toc-links a:hover::before {
+    opacity: 1;
+}
+
+/* Style for active page in TOC (non-link) */
+.toc-links > li > span.active {
+    color: rgb(0, 0, 0);
+    font-size: 11px;
+    font-weight: 600 !important;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    padding: 10px 16px 10px 28px; /* Same as navbar active */
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+/* Active Page Styling - Show arrow for active page in TOC (top level) */
+.toc-links > li > span.active::before {
+    content: '→';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+}
+
+/* Style for active page in TOC chapter items */
+.toc-chapter-items span.active {
+    color: rgb(0, 0, 0);
+    font-size: 11px;
+    font-weight: 600 !important;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    padding: 10px 16px 10px 36px; /* Indented more for chapter items */
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+/* Active Page Styling - Show arrow for active page in TOC chapter items */
+.toc-chapter-items span.active::before {
+    content: '→';
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
 }
 
 /* Load Oswald (used in headings and comment area) */
@@ -344,6 +755,7 @@ h3 {
 #comment-section button:hover,
 .reply-form button:hover {
     background-color: #000000;
+    cursor: crosshair;
 }
 
 #comment-section input:focus,
@@ -510,7 +922,7 @@ h3 {
 
 /* All threading lines use the same color */
 
-  /* Apply subtle shadow on hover for all links except arrow links */
-a:not(.arrow-link):hover {
+  /* Apply subtle shadow on hover for all links except arrow links and nav links */
+a:not(.arrow-link):not(.nav-links a):not(.toc-links a):hover {
     background-color: #c4c4c4; /* Light grey background on hover */
 }

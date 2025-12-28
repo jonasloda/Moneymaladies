@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Billeder/thumbnail.png" type="image/png">
+    <title>Digitale Centralbankpenge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-header">
+            <span>Bookshelf</span>
+            <span class="menu-icon">≡</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">MONEY MALADIES</a></li>
+            <li><span class="active">DIGITALE CENTRALBANKPENGE</span></li>
+            <li><a href="møntiggørelsen.html">MØNTIGGØRELSEN</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="content-box"></div>
+        <h1 class="home-title">DEL 1</h1>
+        <h1 class="about-title">HVAD ER CBDC?</h1>
+
+        <p><span class="dropcap">C</span>BDC er en ny form for penge, der på én og samme
+            tid er digitale og centralbankudstedte. I Norden
+            kendes konceptet bedst under den mere mundrette
+            betegnelse e-krone og forsøges bl.a. indført i nabo-
+            landet Sverige, hvor Riksbanken siden 2017 har for-
+            sket i implementeringen (Sveriges Riksbank 2017).
+        </p>
+
+        <p>For at tydeliggøre forskellene mellem bl.a. bankind-
+            skud, kontanter og CBDC kan det være nyttigt at
+            trække på BIS' pengeblomst , der er en taksono-
+            misk inddeling af penge. Her defineres CBDC som
+            penge, der - udover at være centralbankudstedte og
+            digitale - opfylder minimum ét af to krav:</p>
+
+        <ul style="list-style-type: disc; padding-left: 40px; margin-top: 20px; margin-bottom: 20px;">
+            <li>En CBDC er værdibaseret</li>
+            <li>En CBDC er universelt tilgængelig</li>
+        </ul>
+
+        <p>Hvad vil det sige, at penge er henholdsvis værdi-
+        baserede og universelt tilgængelige?</p>
+
+        <p>Selvom CBDC nu er kommet på dagsordenen, går
+            idéen om digitale centralbankpenge forud for det
+            sidste årtis skærpede debat og kan trækkes tilbage
+            til økonomen James Tobin. I 80’erne foreslog han
+            
+            en pengeform, der kombinerer bankindskuds bekvemmelighed med kontanters sikkerhed; en type
+            
+            penge, der skulle optimere betalingsprocesser og
+            
+            samtidig minimere behovet for en indskudsgarantiordning (Tobin 1985).</p>
+
+        <p>I samklang med Tobin advokerer foreningen Gode
+            Penge for en detail-CBDC. En detail-CBDC, også
+            
+            kaldet e-krone, kan fremme konkurrence og innovation i bank- og betalingssektoren samt styrke det
+            
+            pengepolitiske råderum. Kombineret med politiske
+            tiltag og demokratiserende centralbankreformer kan
+            digitale centralbankpenge tilmed bane vejen for et
+            almennyttigt og grønt pengesystem.</p>
+
+        <p>Mange centralbanker tolker i dag en detail-CBDC
+            som en evolutionær nødvendighed, der – udover at
+            strømline betalingsprocesser og fremme finansiel
+            inklusion – også kan mobiliseres som led i et forsøg
+            på at værne om den monetære suverænitet. Men
+            
+            en detail-CBDC byder også på en række udfordringer og risici, der bl.a. angår privatlivet og konsolidering af finansiel magt. Derfor er det vigtigt at
+            
+            analysere, vurdere og forstå faldgruberne ved
+            digitale centralbankpenge: Hvad er bekymringerne –
+            og hvordan sikrer vi, at de nye digitale penge tjener
+            samfundets interesse?</p>
+
+                <!-- Arrow container -->
+                <div class="arrow-container">
+                    <a href="Oversigt.html" class="arrow-link right-arrow">
+                        <span class="arrow">→</span>
+                    </a>
+                </div>
+
+       <!-- Comments Section -->
+       <div id="comment-section" class="comments-section">
+        <form id="comment-form">
+            <input type="text" id="name" placeholder="Your Name" required><br><br>
+            <textarea id="comment" placeholder="Your Commment" rows="5" required></textarea><br><br>
+            <button type="submit">Submit Comment</button>
+        </form>
+        <div id="comments-container"></div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const commentForm = document.getElementById('comment-form');
+        const commentsContainer = document.getElementById('comments-container');
+
+        function createComment(name, text) {
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment-box');
+
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <button type="button" class="toggle-comment" aria-label="Toggle comment">−</button>
+                    <span class="comment-author">${name}</span>
+                </div>
+                <div class="comment-body">
+                    <p>${text}</p>
+                    <div class="comment-actions">
+                        <span class="reply-btn">Reply to ${name}</span>
+                    </div>
+                    <div class="reply-container"></div>
+                </div>
+            `;
+
+            const toggleBtn = commentDiv.querySelector('.toggle-comment');
+            toggleBtn.onclick = () => {
+                const collapsed = commentDiv.classList.toggle('collapsed');
+                toggleBtn.textContent = collapsed ? '+' : '−';
+
+                // Also collapse/expand all nested replies
+                const replyContainer = commentDiv.querySelector('.reply-container');
+                if (replyContainer) {
+                    replyContainer.style.display = collapsed ? 'none' : 'block';
+                }
+            };
+
+            commentDiv.querySelector('.reply-btn').onclick = function () {
+                if (commentDiv.querySelector('.reply-form')) return;
+
+                const parentAuthor = commentDiv.querySelector('.comment-author').textContent;
+                const replyForm = document.createElement('form');
+                replyForm.classList.add('reply-form');
+                replyForm.innerHTML = `
+                    <div style="margin-bottom: 8px; font-size: 0.9em; color: #666;">Replying to ${parentAuthor}</div>
+                    <input type="text" placeholder="Your Name" required><br><br>
+                    <textarea placeholder="Your Reply" rows="3" required></textarea><br><br>
+                    <button type="submit">Submit Reply</button>
+                `;
+
+                commentDiv.querySelector('.comment-body').appendChild(replyForm);
+
+                replyForm.onsubmit = function (e) {
+                    e.preventDefault();
+                    const replyName = replyForm.querySelector('input').value;
+                    const replyText = replyForm.querySelector('textarea').value;
+
+                    commentDiv.querySelector('.reply-container').appendChild(createComment(replyName, replyText));
+                    replyForm.remove();
+                };
+            };
+
+            return commentDiv;
+        }
+
+        commentForm.onsubmit = function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+
+            commentsContainer.prepend(createComment(name, comment));
+            commentForm.reset();
+        };
+    });
+</script>
+
+    </div>
+
+    <!-- Custom Scrollbar -->
+    <div id="custom-scrollbar">
+        <div id="custom-scrollbar-thumb"></div>
+    </div>
+
+    <script>
+    // Custom Scrollbar JavaScript
+    (function() {
+        const scrollContent = document.documentElement;
+        const scrollbar = document.getElementById('custom-scrollbar');
+        const thumb = document.getElementById('custom-scrollbar-thumb');
+
+        function updateScrollbar() {
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+            const scrollTop = scrollContent.scrollTop || document.body.scrollTop;
+
+            const thumbHeight = Math.max((clientHeight / scrollHeight) * clientHeight, 30);
+            const thumbTop = (scrollTop / scrollHeight) * clientHeight;
+
+            thumb.style.height = thumbHeight + 'px';
+            thumb.style.top = thumbTop + 'px';
+        }
+
+        window.addEventListener('scroll', updateScrollbar);
+        window.addEventListener('resize', updateScrollbar);
+
+        let isDragging = false;
+        let startY = 0;
+        let startScrollTop = 0;
+
+        thumb.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startY = e.clientY;
+            startScrollTop = scrollContent.scrollTop || document.body.scrollTop;
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+
+            const deltaY = e.clientY - startY;
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+            const scrollDelta = (deltaY / clientHeight) * scrollHeight;
+
+            window.scrollTo(0, startScrollTop + scrollDelta);
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        scrollbar.addEventListener('click', function(e) {
+            if (e.target === thumb) return;
+
+            const rect = scrollbar.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            const scrollHeight = scrollContent.scrollHeight;
+            const clientHeight = scrollContent.clientHeight;
+
+            window.scrollTo(0, (clickY / clientHeight) * scrollHeight);
+        });
+
+        updateScrollbar();
+    })();
+    </script>
+
+    <script>
+    // Navbar toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.navbar');
+        const navbarHeader = document.querySelector('.navbar-header');
+
+        if (navbarHeader) {
+            navbarHeader.addEventListener('click', function() {
+                navbar.classList.toggle('active');
+            });
+        }
+
+        // Close navbar when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navbar.contains(e.target)) {
+                navbar.classList.remove('active');
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>

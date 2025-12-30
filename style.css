@@ -10,6 +10,27 @@ a[href]:after {
     content: none !important;
 }
 
+/* Header and Footer Frame */
+.page-header-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background-color: #f6f3ef;
+    z-index: 999;
+}
+
+.page-footer-frame {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background-color: #f6f3ef;
+    z-index: 999;
+}
+
 /* Text Selection Color */
 ::selection {
     background-color: #c4c4c4; /* Dark grey like link hover */

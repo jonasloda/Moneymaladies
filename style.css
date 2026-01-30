@@ -947,3 +947,163 @@ h3 {
 a:not(.arrow-link):not(.nav-links a):not(.toc-links a):hover {
     background-color: #c4c4c4; /* Light grey background on hover */
 }
+
+/* ==================== */
+/* MOBILE RESPONSIVE    */
+/* ==================== */
+
+@media (max-width: 768px) {
+    /* Container - full width on mobile */
+    .container {
+        width: 90%;
+        max-width: 100%;
+        padding: 15px;
+        margin: 30px auto;
+    }
+
+    /* Typography adjustments */
+    h1 {
+        font-size: 36px;
+        line-height: 1.2;
+    }
+
+    h1.home-title {
+        font-size: 40px;
+    }
+
+    h1.about-title {
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    h3 {
+        font-size: 18px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    /* Drop cap - smaller on mobile */
+    .dropcap {
+        font-size: 45px;
+        margin-right: 8px;
+    }
+
+    /* Reposition navbar on mobile - top of page */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        transform: none;
+        flex-direction: column;
+        z-index: 1000;
+        background: #f6f3ef;
+    }
+
+    .navbar-header {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid black;
+        padding: 12px 20px;
+        font-size: 12px;
+    }
+
+    .navbar.active .navbar-header {
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .nav-links {
+        width: 100%;
+        flex-direction: column;
+        border: none;
+        border-bottom: 1px solid black;
+    }
+
+    .nav-links a,
+    .nav-links span.active {
+        padding: 12px 20px;
+    }
+
+    .nav-links a:hover {
+        padding-left: 30px;
+    }
+
+    /* Hide TOC navbar on mobile */
+    .toc-navbar {
+        display: none;
+    }
+
+    /* Add top margin to container to account for fixed navbar */
+    .container {
+        margin-top: 70px;
+    }
+
+    /* Custom scrollbar - hide on mobile */
+    #custom-scrollbar {
+        display: none;
+    }
+
+    /* Arrow navigation - adjust for mobile */
+    .arrow-container {
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+        margin: 30px auto;
+    }
+
+    .arrow {
+        font-size: 20px;
+    }
+
+    /* Footnotes - show inline on mobile instead of fixed position */
+    .footnote::after {
+        position: fixed;
+        right: 15px;
+        top: auto;
+        bottom: 20px;
+        max-width: 80%;
+        font-size: 11px;
+        background: #f6f3ef;
+        padding: 10px;
+        border: 1px solid #000;
+        z-index: 1000;
+    }
+
+    /* Corner accents - smaller on mobile */
+    .container .corner-bl,
+    .container .corner-br {
+        width: 25px;
+        height: 25px;
+        border-width: 2px;
+    }
+
+    /* Comment section adjustments */
+    #comment-section {
+        font-size: 13px;
+    }
+
+    #comment-section textarea {
+        min-height: 100px;
+    }
+
+    .comment-body {
+        padding-left: 20px;
+    }
+
+    .reply-container > .comment-box {
+        padding-left: 25px;
+    }
+
+    /* Header and footer frames - thinner on mobile */
+    .page-header-frame,
+    .page-footer-frame {
+        height: 6px;
+    }
+}
